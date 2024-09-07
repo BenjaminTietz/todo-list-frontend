@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../environmets/enviroment';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -13,7 +14,7 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private as: AuthService) {}
+  constructor(private as: AuthService, private router: Router) {}
 
   async login() {
     try {
@@ -21,8 +22,8 @@ export class LoginComponent {
         this.username,
         this.password
       );
-      // TODO: Redirect
       console.log(resp);
+      this.router.navigateByUrl('/todos');
     } catch (error) {
       console.log('error', error);
     }
