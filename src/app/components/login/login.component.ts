@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environmets/enviroment';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -11,26 +13,16 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  async loginWithUsernameAndPassword() {
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
+  constructor(private as: AuthService) {}
 
-    const raw = JSON.stringify({
-      username: this.username,
-      password: this.password,
-    });
-
-    const requestOptions: RequestInit = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow',
-    };
-
+  async login() {
     try {
-      let resp = await fetch('http://127.0.0.1:8000/login/', requestOptions);
-      let json = await resp.json();
-      localStorage.setItem('token', json.token);
+      let resp = await this.as.loginWithUsernameAndPassword(
+        this.username,
+        this.password
+      );
+      // TODO: Redirect
+      console.log(resp);
     } catch (error) {
       console.log('error', error);
     }
