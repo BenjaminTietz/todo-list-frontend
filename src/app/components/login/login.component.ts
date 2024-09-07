@@ -13,15 +13,18 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  token: string = '';
 
   constructor(private as: AuthService, private router: Router) {}
 
   async login() {
     try {
-      let resp = await this.as.loginWithUsernameAndPassword(
+      let resp: any = await this.as.loginWithUsernameAndPassword(
         this.username,
         this.password
       );
+      const token = resp.token;
+      localStorage.setItem('token', token);
       console.log(resp);
       this.router.navigateByUrl('/todos');
     } catch (error) {
