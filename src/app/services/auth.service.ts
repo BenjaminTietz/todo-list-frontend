@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environmets/enviroment';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+
 @Injectable({
   providedIn: 'root',
 })
